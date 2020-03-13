@@ -204,8 +204,18 @@ int main(int argc, char** argv) {
   DIR* dirp = opendir(argv[1]);
   struct dirent *epdf;
   
+
   // Compute all files in the folder
+  cout << "file,samples,sample_rate,threads,balance,elapsed_us" << endl;
+  readdir(dirp);
+  cout << "file,samples,sample_rate,threads,balance,elapsed_us" << endl;
+  cout << dirp << endl;
+  cout << "file,samples,sample_rate,threads,balance,elapsed_us" << endl;
+
+
   while ((epdf = readdir(dirp)) != NULL) {
+  cout << epdf->d_name << endl;
+ 
     size_t len = strlen(epdf->d_name);
     
     // Pick only .dat files
@@ -213,11 +223,13 @@ int main(int argc, char** argv) {
         && strcmp(&epdf->d_name[len-3], "dat") == 0) {
       stringstream fname(epdf->d_name);
       string samples, sr;
+  cout << "file,samples,sample_rate,threads,balance,elapsed_us" << endl;
   
       // Read file properties
       getline(fname, samples, '@');
       getline(fname, sr, '.');
   
+      cout << samples << endl;
       char* fold = new char[512];
       strcpy(fold, argv[1]);
       int smp = atoi(samples.c_str());
